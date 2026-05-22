@@ -222,10 +222,12 @@
     <script>
         // --- DATA & CONFIGURATION ---
         const STIMULI = {
-            easy: ["風", "分", "份", "放", "法", "非", "方", "飯", "貨", "化", "飛", "反", "房", "範", "煩", "芳", "憤", "蜂", "楓", "鳳", "縫", "吩", "筷", "番", "髮", "奮", "罰", "灰", "費", "肥", "火", "慌", "符", "服", "悔", "苦", "福"],
-            hard: ["飛機", "飛行", "服裝", "符合", "呼吸", "複雜", "苦瓜", "筷子", "番茄", "楓葉", "範圍", "貨物", "火藥", "風箏", "風球", "憤怒", "房屋", "肥胖", "反對", "房間"]
+            easy: ["風", "分", "份", "放", "法", "非", "方", "飯", "貨", "化", "飛", "反", "房", "範", "煩", "芳", "憤", "蜂", "楓", "鳳", "縫", "吩", "筷", "番", "髮", "奮", "凡", "防", "肥", "粉"],
+            hard: ["飛機", "飛行", "服裝", "符合", "呼吸", "複雜", "苦瓜", "筷子", "番茄", "楓葉", "範圍", "貨物", "火藥", "風箏", "風球", "憤怒", "房屋", "肥皂", "粉紅", "飛快"]
         };
 
+        const FLOWERS = ['🌻', '🌼', '🌷', '🌹', '🌺', '🪻', '🌸', '🏵️'];
+        
         const ROWS = 9;
         const COLS = 9;
         const MINES = 10;
@@ -370,7 +372,8 @@
                 isMine: false,
                 isRevealed: false,
                 isFlagged: false,
-                neighborMines: 0
+                neighborMines: 0,
+                flowerEmoji: FLOWERS[Math.floor(Math.random() * FLOWERS.length)]
             })));
 
             // Place Mines
@@ -422,6 +425,10 @@
                         } else if (cellData.neighborMines > 0) {
                             cellEl.innerHTML = cellData.neighborMines;
                             cellEl.classList.add(`num-${cellData.neighborMines}`);
+                        } else {
+                            // Safe empty cell (0 neighbors) - show flower emoji
+                            cellEl.innerHTML = cellData.flowerEmoji;
+                            cellEl.style.fontSize = '1.75rem';
                         }
                     } else if (cellData.isFlagged) {
                         cellEl.innerHTML = '🚩';
